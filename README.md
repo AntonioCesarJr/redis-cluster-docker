@@ -1,4 +1,4 @@
-# Clustered REDIS in container DOCKER
+# Clustered REDIS in DOCKER container
 
 ## What is this project
 
