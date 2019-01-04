@@ -2,7 +2,10 @@ FROM ubuntu:16.04
 MAINTAINER AntonioCesar <jrcesar4@gmail.com>
 COPY redis-3.2.10.tar.gz /
 RUN apt-get moo;
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -o Acquire::CompressionTypes::Order::=gz 
+RUN sudo apt-get upgrade -y
+RUN sudo apt-get update
+RUN apt-get install -y \
     aufs-tools \
     automake \
     build-essential \
@@ -21,4 +24,4 @@ RUN gem install redis
 COPY startredis.sh /usr/bin
 RUN chmod +x /usr/bin/startredis.sh
 ENTRYPOINT startredis.sh && /bin/bash
-EXPOSE 30001 30002 30003 30004 30005 30006
+EXPOSE 7000 7001 7002 7003 7004 7005
