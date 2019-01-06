@@ -1,10 +1,8 @@
 FROM ubuntu:16.04
 MAINTAINER AntonioCesar <jrcesar4@gmail.com>
 COPY redis-3.2.10.tar.gz /
-RUN apt-get moo;
-RUN apt-get update -o Acquire::CompressionTypes::Order::=gz 
-RUN sudo apt-get upgrade -y
-RUN sudo apt-get update
+RUN apt-get moo
+RUN apt-get update
 RUN apt-get install -y \
     aufs-tools \
     automake \
