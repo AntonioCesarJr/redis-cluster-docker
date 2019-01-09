@@ -1,24 +1,15 @@
-FROM ubuntu:16.04
+FROM gcc:5.5.0
 MAINTAINER AntonioCesar <jrcesar4@gmail.com>
 COPY redis-3.2.10.tar.gz /
 RUN apt-get moo
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN apt-get update
-RUN apt-get install -y \
-    aufs-tools \
-    automake \
-    build-essential \
-    libcap-dev \
-    ruby2.3 \
-    ruby2.3-dev \
-    rubygems \
-    bundler \
-    tk8.5 \
-    vim \
- && rm -rf /var/lib/apt/lists/* \
- && apt-get clean -yqq
+RUN apt-get -y install tcl8.5 \
+	gem
 RUN tar -xzvf redis-3.2.10.tar.gz
 RUN cd redis-3.2.10 && make install
-RUN gem install redis
+COPY create-cluster /redis-3.2.10/utils/create-cluster
+RUN chmod +rx /redis-3.2.10/utils/create-cluster/create-cluster
 COPY startredis.sh /usr/bin
 RUN chmod +x /usr/bin/startredis.sh
 ENTRYPOINT startredis.sh && /bin/bash
