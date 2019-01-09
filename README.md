@@ -2,7 +2,7 @@
 
 ## What is this project
 
-#### This project is a Redis running in clustered mode inside a docker container. It's created based on a Linux Ubuntu 16.04 image with a full installation of Redis 3.2.10. After Redis installation, a cluster mode will start. 
+#### This project is a Redis running in clustered mode inside a docker container. It's created based on a GCC (GNU C compiler) image with a full installation of Redis 3.2.10. After Redis installation, a cluster mode will start. 
 #### The protected mode is disabled. This step is necessary to run Redis inside a container.
 #### The project create 6 Redis nodes, being 3 master and 3 slaves. The masters nodes uses the 7000, 7001 and 7002 ports.
 
