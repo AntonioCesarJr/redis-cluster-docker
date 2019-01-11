@@ -1,16 +1,32 @@
-FROM gcc:5.5.0
+FROM ubuntu:16.04
 MAINTAINER AntonioCesar <jrcesar4@gmail.com>
 COPY redis-3.2.10.tar.gz /
 RUN apt-get moo
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN apt-get update
-RUN apt-get -y install tcl8.5 \
-	gem
+RUN rm -rf /etc/apt/sources.list
+RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt xenial main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src mirror://mirrors.ubuntu.com/mirrors.txt xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt xenial-security main restricted universe multiverse" >> /etc/apt/sources.list
+RUN apt-get clean && apt-get update && apt-get install -y \
+    aufs-tools \
+    automake \
+    build-essential \
+    libcap-dev \
+    ruby2.3 \
+    ruby2.3-dev \
+    rubygems \
+    bundler \
+    tk8.5 \
+    vim \
+ && rm -rf /var/lib/apt/lists/* \
+ && apt-get clean -yqq
 RUN tar -xzvf redis-3.2.10.tar.gz
 RUN cd redis-3.2.10 && make install
-COPY create-cluster /redis-3.2.10/utils/create-cluster
-RUN chmod +rx /redis-3.2.10/utils/create-cluster/create-cluster
+RUN gem install redis
 COPY startredis.sh /usr/bin
 RUN chmod +x /usr/bin/startredis.sh
+COPY create-cluster /redis-3.2.10/utils/create-cluster
+RUN chmod +x /redis-3.2.10/utils/create-cluster/create-cluster
 ENTRYPOINT startredis.sh && /bin/bash
 EXPOSE 7000 7001 7002 7003 7004 7005
