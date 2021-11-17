@@ -16,7 +16,7 @@
 	
 	* Create Docker image:
 		* __docker build -t rediscluster .__ (the dot means that Dockerfile is in the same directory where your are executing the command 'docker build').
-		This command is necessary only once. After created, we dont need to recriate image anymore.
+		This command is necessary only once. After created, we dont need to recreate image anymore.
 	
 	* Create and start container based on image
 		* __docker run --name REDISCLUSTER -td -p 7000:7000 -p 7001:7001 -p 7002:7002 rediscluster__
